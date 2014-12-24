@@ -1,0 +1,23 @@
+[user]
+    name = Stefan Chipilov
+[color]
+    ui = auto
+[alias]
+    st = status
+    d = diff --color-words -w
+    dc = diff --color-words -w --cached
+    aa = add -u .
+    co = checkout
+    b = branch
+    fo = remote update -p
+    so = remote show origin
+    lg = log --graph --pretty=format:'%C(yellow)%h%Creset %s %C(blue)%an %cD%Creset %C(red)%d%Creset' --abbrev-commit
+    up = !git remote update -p && git merge --ff-only @{u}
+[merge]
+    conflictstyle = diff3
+[push]
+    default = simple
+[diff]
+    renameLimit = 8000
+[include]
+    path = # IMPORTANT: Fill in path to environment-specific options (e.g. work, github, etc.)

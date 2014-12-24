@@ -1,0 +1,4 @@
+[user]
+    email = chipilov@hotmail.com
+[credential]
+    helper = wincred
