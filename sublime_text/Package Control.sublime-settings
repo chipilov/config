@@ -10,6 +10,7 @@
 	"installed_packages":
 	[
 		"Calculate",
+		"HTML Snippets",
 		"Indent XML",
 		"Package Control",
 		"Pretty JSON",
