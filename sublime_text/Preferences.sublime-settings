@@ -1,0 +1,16 @@
+{
+	"color_scheme": "Packages/User/cobalt2 (SL).tmTheme",
+	"font_face": "consolas",
+	"font_size": 11,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"rulers":
+	[
+		80
+	],
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true
+}
