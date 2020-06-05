@@ -3,7 +3,7 @@
 [color]
     ui = auto
 [alias]
-    st = status
+    st = !git status && echo 'Hidden files:\n' && git ls-files -v | grep "^[[:lower:]]" | sed 's/h /         /'
     d = diff --color-words -w
     dc = diff --color-words -w --cached
     aa = add -u .
@@ -11,11 +11,12 @@
     b = branch
     fo = remote update -p
     so = remote show origin
-    lg = log --graph --pretty=format:'%C(yellow)%h%Creset %s %C(blue)%an %cD%Creset %C(red)%d%Creset' --abbrev-commit
+    lg = log --graph --pretty=format:'%C(yellow)%h%Creset %s %C(green)%an %cD%Creset %C(red)%d%Creset' --abbrev-commit
     up = !git remote update -p && git merge --ff-only @{u}
-    ignore = update-index --assume-unchanged
-    track = update-index --no-assume-unchanged
-    ignored = !git ls-files -v | grep "^[[:lower:]]"
+    hide = update-index --assume-unchanged
+    unhide = update-index --no-assume-unchanged
+    unhide-all = !git ls-files -v | grep '^[[:lower:]]' | cut -d ' ' -f 2 | xargs git unhide
+    hidden = !echo 'Hidden files:\n' && git ls-files -v | grep '^[[:lower:]]' | sed 's/h /         /'
 [merge]
     conflictstyle = diff3
 [push]
