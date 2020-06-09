@@ -3,7 +3,7 @@
 [color]
     ui = auto
 [alias]
-    st = !git status && echo 'Hidden files:\n' && git ls-files -v | grep "^[[:lower:]]" | sed 's/h /     !!! /'
+    st = !git status && "echo -e \"Hidden files:\\n\\033[35m\"" && git ls-files -v | grep '^[[:lower:]]' | sed 's/h /    !!! /' && "echo -e \"\\033[0m\""
     d = diff --color-words -w
     dc = diff --color-words -w --cached
     aa = add -u .
@@ -16,7 +16,7 @@
     hide = update-index --assume-unchanged
     unhide = update-index --no-assume-unchanged
     unhide-all = !git ls-files -v | grep '^[[:lower:]]' | cut -d ' ' -f 2 | xargs git unhide
-    hidden = !echo 'Hidden files:\n' && git ls-files -v | grep '^[[:lower:]]' | sed 's/h /      !!! /'
+    hidden = !"echo -e \"Hidden files:\\n\\033[35m\"" && git ls-files -v | grep '^[[:lower:]]' | sed 's/h /    !!! /' && "echo -e \"\\033[0m\""
 [merge]
     conflictstyle = diff3
 [push]
