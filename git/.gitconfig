@@ -3,7 +3,7 @@
 [color]
     ui = auto
 [alias]
-    st = !git status && "echo -e \"Hidden files:\\n\\033[35m\"" && git ls-files -v | grep '^[[:lower:]]' | sed 's/h /    !!! /' && "echo -e \"\\033[0m\""
+    st = !cd -- ${GIT_PREFIX:-.} && git status && "echo -e \"Hidden files:\\n\\033[35m\"" && git ls-files -v $(git rev-parse --show-toplevel) | grep '^[[:lower:]]' | sed 's/h /    !!! /' && "echo -e \"\\033[0m\""
     d = diff --color-words -w
     dc = diff --color-words -w --cached
     aa = add -u .
@@ -16,12 +16,14 @@
     hide = update-index --assume-unchanged
     unhide = update-index --no-assume-unchanged
     unhide-all = !git ls-files -v | grep '^[[:lower:]]' | cut -d ' ' -f 2 | xargs git unhide
-    hidden = !"echo -e \"Hidden files:\\n\\033[35m\"" && git ls-files -v | grep '^[[:lower:]]' | sed 's/h /    !!! /' && "echo -e \"\\033[0m\""
+    hidden = !cd -- ${GIT_PREFIX:-.} && "echo -e \"Hidden files:\\n\\033[35m\"" && git ls-files -v $(git rev-parse --show-toplevel) | grep '^[[:lower:]]' | sed 's/h /    !!! /' && "echo -e \"\\033[0m\""
 [merge]
     conflictstyle = diff3
 [push]
     default = simple
 [diff]
     renameLimit = 8000
+[status]
+    relativePaths = true
 [include]
     path = # IMPORTANT: Fill in path to environment-specific options (e.g. work, github, etc.)
