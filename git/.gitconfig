@@ -6,7 +6,7 @@
     st = !cd -- ${GIT_PREFIX:-.} && git status && "echo -e \"Hidden files:\\n\\033[35m\"" && git ls-files -v $(git rev-parse --show-toplevel) | grep '^[[:lower:]]' | sed 's/h /    !!! /' && "echo -e \"\\033[0m\""
     d = diff --color-words -w
     dc = diff --color-words -w --cached
-    aa = add -u .
+    aa = add add --all
     co = checkout
     b = branch
     fo = remote update -p
