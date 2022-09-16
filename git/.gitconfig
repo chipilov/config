@@ -9,6 +9,7 @@
     d = diff --color-words -w
     dc = diff --color-words -w --cached
     aa = !git add --all
+    au = !git add --update
     co = checkout
     b = branch
     fo = remote update -p
