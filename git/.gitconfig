@@ -16,10 +16,11 @@
     so = remote show origin
     lg = log --graph --pretty=format:'%C(yellow)%h%Creset %s %C(green)%an %cD%Creset %C(red)%d%Creset' --abbrev-commit
     up = !git remote update -p && git merge --ff-only @{u}
-    hide = update-index --assume-unchanged
-    unhide = update-index --no-assume-unchanged
-    unhide-all = !git ls-files -v | grep '^[[:lower:]]' | cut -d ' ' -f 2 | xargs git unhide
-    hidden = !cd -- ${GIT_PREFIX:-.} && "echo -e \"Hidden files:\\n\\033[35m\"" && git ls-files -v $(git rev-parse --show-toplevel) | grep '^[[:lower:]]' | sed 's/h /    !!! /' && "echo -e \"\\033[0m\""
+    hide = update-index --skip-worktree
+    unhide = update-index --no-skip-worktree
+    unhide-all = !git ls-files -v | grep '^S' | cut -d ' ' -f 2 | xargs git unhide
+    hidden = !cd -- ${GIT_PREFIX:-.} && "echo \"Hidden files:\\n\\033[35m\"" && git ls-files -v | grep '^S' | sed 's/S /    !!! /' && "echo \"\\033[0m\""
+    revert-last-change = "!f() { git restore --source \"$(git log -1 --format=%H -- \"$1\")~1\" -- \"$1\"; }; f"
 [merge]
     conflictstyle = diff3
 [push]
