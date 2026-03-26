@@ -20,7 +20,16 @@
     unhide = update-index --no-skip-worktree
     unhide-all = !git ls-files -v | grep '^S' | cut -d ' ' -f 2 | xargs git unhide
     hidden = !cd -- ${GIT_PREFIX:-.} && "echo \"Hidden files:\\n\\033[35m\"" && git ls-files -v | grep '^S' | sed 's/S /    !!! /' && "echo \"\\033[0m\""
-    revert-last-change = "!f() { git restore --source \"$(git log -1 --format=%H -- \"$1\")~1\" -- \"$1\"; }; f"
+    revert-last-change = "!f() { \
+        file=\"$1\"; \
+        index=\"${2:-1}\"; \
+        if [ -z \"$file\" ]; then echo \"usage: git revert-last-file-change <file> [index]\" >&2; return 1; fi; \
+        case \"$index\" in ''|*[!0-9]*) echo \"index must be a positive integer\" >&2; return 1 ;; esac; \
+        [ \"$index\" -ge 1 ] || { echo \"index must be >= 1\" >&2; return 1; }; \
+        commit=$(git log --skip \"$((index - 1))\" -1 --format=%H -- \"$file\") || return 1; \
+        if [ -z \"$commit\" ]; then echo \"no commit at index $index for $file\" >&2; return 1; fi; \
+        git restore --source \"${commit}~1\" -- \"$file\"; \
+    }; f"
 [merge]
     conflictstyle = diff3
 [push]
